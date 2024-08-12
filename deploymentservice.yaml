@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthcare-deployment
+spec:
+  selector:
+    matchLabels:
+      app: healthcare-deployment
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: healthcare-deployment
+    spec:
+      containers:
+        - name: healthcare-deployment
+          image: rameshneeladri/healthcare-project:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8091 # The port that the container is running on in the cluster
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: healthcare-deployment-svc
+spec:
+  selector:
+    app: healthcare-deployment
+  ports:
+    - protocol: "TCP"
+      port: 8091 # The port that the service is running on in the cluster
+      targetPort: 8091 # The port exposed by the service
+  type: NodePort # type of the service.
