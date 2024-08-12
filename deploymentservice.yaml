@@ -20,16 +20,3 @@ spec:
             - containerPort: 8091 # The port that the container is running on in the cluster
 
 ---
-
-apiVersion: v1
-kind: Service
-metadata: 
-  name: healthcare-deployment-svc
-spec:
-  selector:
-    app: healthcare-deployment
-  ports:
-    - protocol: "TCP"
-      port: 8091 # The port that the service is running on in the cluster
-      targetPort: 8091 # The port exposed by the service
-  type: NodePort # type of the service.
